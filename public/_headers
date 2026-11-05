@@ -1,0 +1,36 @@
+# Cloudflare Pages Headers — Syntheticae
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/privacy/*
+  Cache-Control: public, max-age=300, must-revalidate
+  X-Content-Type-Options: nosniff
+
+/assets/fonts/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: font/woff2
+  Access-Control-Allow-Origin: *
+
+/assets/*.mp4
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: video/mp4
+  Accept-Ranges: bytes
+
+/assets/*.webm
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: video/webm
+  Accept-Ranges: bytes
+
+/assets/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/webp
+
+/assets/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/jpeg
+
+/assets/*.png
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: image/png

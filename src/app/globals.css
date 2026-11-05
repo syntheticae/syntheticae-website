@@ -1,26 +1,305 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/assets/fonts/inter-300.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/inter-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/inter-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/instrument-serif-italic.woff2') format('woff2');
+}
+
+/* === Trouvaille × Meraki Design Tokens === */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #F4EFE6;
+  --paper-warm: #EFE9DC;
+  --paper-deep: #E8E1D0;
+  --ink: #1B1814;
+  --ink-soft: #36312A;
+  --muted: #82796A;
+  --muted-2: #A89E89;
+  --line: #D9D1BF;
+  --line-soft: #E5DECE;
+  --clay: #B5663F;
+  --clay-deep: #944E2C;
+  --moss: #5F6244;
+
+  --serif: "Cormorant Garamond", "Instrument Serif", Georgia, serif;
+  --sans: "Geist", "Inter", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --ease: cubic-bezier(.2,.7,.2,1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 40px;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
+
+/* Typography Helpers */
+.font-serif {
+  font-family: var(--serif);
+}
+
+.font-sans {
+  font-family: var(--sans);
+}
+
+.font-mono {
+  font-family: var(--mono);
+}
+
+.it {
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* Trouvaille Photo Frame System */
+.img-frame {
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  background: var(--paper-deep);
+  box-shadow: 0 28px 90px -70px rgba(27,24,20,.48);
+}
+
+.img-frame > img,
+.img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s var(--ease), filter .6s var(--ease);
+}
+
+.img-frame:hover > img,
+.img-frame:hover img {
+  transform: scale(1.04);
+}
+
+.img-frame .vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(28,24,20,0.35));
+  pointer-events: none;
+}
+
+.img-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 0%, rgba(244,239,230,.20), transparent 28%);
+  opacity: .6;
+  pointer-events: none;
+}
+
+/* Pill Button */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 22px 13px 24px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  transition: background .3s var(--ease), transform .3s var(--ease);
+}
+
+.btn-pill:hover {
+  background: var(--clay-deep);
+  transform: translateY(-1px);
+}
+
+.btn-pill .arrow {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+/* Eyebrow Label */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.eyebrow .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--clay);
+  display: inline-block;
+}
+
+/* Liquid Glass Navbar */
+.glass-pill {
+  background: rgba(244, 239, 230, 0.82);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(217, 209, 191, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(27, 24, 20, 0.12);
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-33.333333%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================ Film Grain Texture Overlay */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.038;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ============================================ Meraki Custom Cursor */
+@media (hover: hover) and (pointer: fine) {
+  body,
+  body * {
+    cursor: none !important;
+  }
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  transition: width 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), height 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.2s;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  transition: width 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), height 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.25s, background-color 0.25s;
+}
+
+body.cursor-hover .cursor-ring {
+  width: 72px;
+  height: 72px;
+  opacity: 1 !important;
+  background: #ffffff;
+  mix-blend-mode: difference;
+  border-color: transparent;
+}
+
+body.cursor-hover .cursor-dot {
+  opacity: 0 !important;
+}
+
+/* Trouvaille Inspect Badge on Project Hover */
+body.cursor-inspect .cursor-ring {
+  width: 82px;
+  height: 82px;
+  background: rgba(232, 90, 42, 0.92);
+  backdrop-filter: blur(8px);
+  border-color: transparent;
+  mix-blend-mode: normal;
+  box-shadow: 0 12px 36px rgba(232, 90, 42, 0.4);
+}
+
+body.cursor-inspect .cursor-dot {
+  opacity: 0 !important;
+}
+
+@media (hover: none) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
